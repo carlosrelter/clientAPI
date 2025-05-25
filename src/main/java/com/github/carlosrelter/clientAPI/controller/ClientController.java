@@ -3,6 +3,8 @@ package com.github.carlosrelter.clientAPI.controller;
 import com.github.carlosrelter.clientAPI.controller.dto.ClientDTO;
 import com.github.carlosrelter.clientAPI.model.Client;
 import com.github.carlosrelter.clientAPI.service.ClientService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,16 +15,13 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("clients")
+@RequiredArgsConstructor
 public class ClientController {
 
     private final ClientService service;
 
-    public ClientController(ClientService service){
-        this.service = service;
-    };
-
     @PostMapping
-    public ResponseEntity<ClientDTO> saveClient(@RequestBody ClientDTO clientDTO){
+    public ResponseEntity<ClientDTO> saveClient(@RequestBody @Valid ClientDTO clientDTO){
         var clientEntity = clientDTO.mapperClient();
         service.saveClient(clientEntity);
         return ResponseEntity.ok(clientDTO);

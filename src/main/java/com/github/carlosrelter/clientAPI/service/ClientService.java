@@ -2,19 +2,17 @@ package com.github.carlosrelter.clientAPI.service;
 
 import com.github.carlosrelter.clientAPI.model.Client;
 import com.github.carlosrelter.clientAPI.repository.ClientRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ClientService {
 
     private final ClientRepository repository;
-
-    public ClientService(ClientRepository clientRepository){
-        this.repository = clientRepository;
-    }
 
     public Client saveClient(Client client){
         return repository  .save(client);
