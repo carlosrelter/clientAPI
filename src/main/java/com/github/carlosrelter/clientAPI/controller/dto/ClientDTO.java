@@ -20,13 +20,4 @@ public record ClientDTO(
         String email,
         @NotNull(message = "campo obrigatório")
         TypeClient type) {
-
-    public Client mapperClient(){
-        Client client = new Client();
-        client.setName(this.name);
-        client.setCellphone(this.cellphone);
-        client.setEmail(this.email);
-        client.setType(this.type);
-        return client;
-    }
 }

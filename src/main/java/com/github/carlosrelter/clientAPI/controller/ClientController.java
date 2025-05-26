@@ -1,11 +1,11 @@
 package com.github.carlosrelter.clientAPI.controller;
 
 import com.github.carlosrelter.clientAPI.controller.dto.ClientDTO;
+import com.github.carlosrelter.clientAPI.controller.mappers.ClientMapper;
 import com.github.carlosrelter.clientAPI.model.Client;
 import com.github.carlosrelter.clientAPI.service.ClientService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,9 +20,11 @@ public class ClientController {
 
     private final ClientService service;
 
+    private final ClientMapper mapper;
+
     @PostMapping
     public ResponseEntity<ClientDTO> saveClient(@RequestBody @Valid ClientDTO clientDTO){
-        var clientEntity = clientDTO.mapperClient();
+        var clientEntity = mapper.toEntity(clientDTO);
         service.saveClient(clientEntity);
         return ResponseEntity.ok(clientDTO);
     }
@@ -30,17 +32,13 @@ public class ClientController {
     @GetMapping("{id}")
     public ResponseEntity<ClientDTO> getDetailsClient(@PathVariable Long id){
         Optional<Client> clientOptional = service.findClientById(id);
-        if(clientOptional.isPresent()){
-            Client client = clientOptional.get();
-            ClientDTO clientDTO = new ClientDTO(
-                    client.getId(),
-                    client.getName(),
-                    client.getCellphone(),
-                    client.getEmail(),
-                    client.getType());
-            return ResponseEntity.ok(clientDTO);
-        }
-        return ResponseEntity.notFound().build();
+
+        return service
+                .findClientById(id)
+                .map(client-> {
+                    ClientDTO clientDTO = mapper.toDTO(client);
+                    return ResponseEntity.ok(clientDTO);
+                }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("{id}")

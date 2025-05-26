@@ -2,10 +2,6 @@ package com.github.carlosrelter.clientAPI.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
-import javax.annotation.processing.Generated;
 
 @Entity
 @Table(name="client")
@@ -28,5 +24,4 @@ public class Client {
     @Enumerated(EnumType.STRING)
     @Column(name="type",length = 10, nullable = false)
     private TypeClient type;
-
 }
