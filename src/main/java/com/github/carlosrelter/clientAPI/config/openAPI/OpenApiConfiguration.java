@@ -19,7 +19,6 @@ import org.springframework.context.annotation.Configuration;
                         email = "reltercontato@gmail.com",
                         url = "clientapi.com"
                 )
-
         ),
         security = {
                 @SecurityRequirement(name="bearerAuth")
