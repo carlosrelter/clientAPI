@@ -2,11 +2,13 @@ package com.github.carlosrelter.clientAPI.controller.dto;
 
 import com.github.carlosrelter.clientAPI.model.Client;
 import com.github.carlosrelter.clientAPI.model.TypeClient;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+@Schema(name = "Client")
 public record ClientDTO(
         Long id,
         @NotBlank(message = "campo obrigatório")

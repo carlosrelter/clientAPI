@@ -6,6 +6,7 @@ import com.github.carlosrelter.clientAPI.controller.dto.RegisterDTO;
 import com.github.carlosrelter.clientAPI.controller.dto.ResponseDTO;
 import com.github.carlosrelter.clientAPI.model.User;
 import com.github.carlosrelter.clientAPI.repository.UserRepository;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +18,7 @@ import java.util.Optional;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
+@Tag(name = "Authentication")
 public class AuthController {
 
     private final UserRepository repository;
